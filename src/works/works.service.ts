@@ -22,9 +22,14 @@ export class WorksService {
     return await this.workModel.find();
   }
 
+  async findVisible(): Promise<Work[]> {
+    return await this.workModel.find({ visible: true });
+  } 
+
   async findOne(id: string): Promise<Work> {
     return await this.workModel.findOne({ _id: id });
   }
+
 
   async create(work: Work): Promise<Work> {
     const newWork = new this.workModel(work);

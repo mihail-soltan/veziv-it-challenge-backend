@@ -23,6 +23,10 @@ export class WorksController {
     return this.worksService.findAll();
   }
 
+  @Get('visible')
+  async findVisible(): Promise<Work[]> {
+    return this.worksService.findVisible();
+  }
   //   @Get(':id')
   //   findOne(@Param() param) {
   //     return `Get work ${param.id}`;
@@ -41,7 +45,10 @@ export class WorksController {
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Work> {
     const url = await this.worksService.uploadFileToS3(file);
-    const work = await this.worksService.create({...createWorkDto, image: url});
+    const work = await this.worksService.create({
+      ...createWorkDto,
+      image: url,
+    });
     return work;
   }
 
